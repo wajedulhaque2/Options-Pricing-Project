@@ -1,0 +1,4 @@
+method,price,standard_error,confidence_low,confidence_high
+Black-Scholes-Merton,6.594025324130108,,,
+CRR Binomial — European,6.591689235645675,,,
+Monte Carlo,6.606873805950945,0.008305192637873018,6.590595927496047,6.623151684405844

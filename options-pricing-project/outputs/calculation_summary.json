@@ -1,0 +1,44 @@
+{
+  "inputs": {
+    "spot": 100.0,
+    "strike": 100.0,
+    "time_to_expiry": 0.5,
+    "risk_free_rate": 0.05,
+    "volatility": 0.2,
+    "dividend_yield": 0.01,
+    "option_type": "call"
+  },
+  "call_price": 6.594025324130108,
+  "put_price": 4.6237686076951405,
+  "call_bounds": [
+    1.9702567164349745,
+    99.50124791926824
+  ],
+  "put_bounds": [
+    0.0,
+    97.53099120283326
+  ],
+  "put_call_parity_residual": -7.105427357601002e-15,
+  "recovered_implied_volatility": 0.19999999999999918,
+  "call_greeks": {
+    "delta": 0.5810852836085031,
+    "gamma": 0.02744428809969944,
+    "vega_per_1pct": 0.27444288099699443,
+    "theta_per_year": -7.483497488167395,
+    "theta_per_day": -0.020502732844294234,
+    "rho_per_1pct": 0.257572515183601
+  },
+  "put_greeks": {
+    "delta": -0.41392719558417923,
+    "gamma": 0.02744428809969944,
+    "vega_per_1pct": 0.27444288099699443,
+    "theta_per_year": -3.601960407218414,
+    "theta_per_day": -0.009868384677310724,
+    "rho_per_1pct": -0.2300824408305653
+  },
+  "american_put_comparison": {
+    "european_price": 4.621432519205605,
+    "american_price": 4.811396895840288,
+    "early_exercise_premium": 0.18996437663468324
+  }
+}

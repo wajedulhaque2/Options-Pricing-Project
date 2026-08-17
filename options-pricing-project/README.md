@@ -1,78 +1,38 @@
-# Options Pricing Calculator
+# Options Pricing Project — Implementation Directory
 
-A complete mathematical derivatives-pricing project covering:
+For the project overview, model comparison, verified calculations and portfolio walkthrough, see the [root README](../README.md).
 
-- Black-Scholes-Merton European call and put pricing
-- Continuous dividend yield
-- Analytical Greeks: delta, gamma, vega, theta, and rho
-- Put-call parity and no-arbitrage bounds
-- Implied volatility using SciPy's `brentq` root solver
-- Cox-Ross-Rubinstein binomial trees
-- European and American exercise
-- Risk-neutral Monte Carlo simulation
-- Antithetic and control variates
-- Confidence intervals and standard errors
-- Price surfaces and Greek profiles
-- Optional Yahoo Finance option chains
-- Interactive Streamlit calculator
-- Automated tests
-- A complete theory notebook
+This directory contains the pricing models, interactive application, notebooks, tests and saved outputs behind the project.
 
-## Project structure
+## Key files
 
-```text
-options-pricing-project/
-├── black_scholes.py
-├── implied_volatility.py
-├── binomial.py
-├── monte_carlo.py
-├── analytics.py
-├── market_data.py
-├── main.py
-├── main.ipynb
-├── app.py
-├── complete_options_pricing_theory_guide.ipynb
-├── requirements.txt
-├── tests/
-└── outputs/
-```
+- `main.py` — reproducible pricing/risk workflow and output generation.
+- `main.ipynb` — notebook analysis and visual exploration.
+- `complete_options_pricing_theory_guide.ipynb` — detailed options-pricing theory.
+- `app.py` — Streamlit calculator.
+- `black_scholes.py` — analytical pricing, Greeks, bounds and parity checks.
+- `binomial.py` — CRR European/American tree valuation.
+- `monte_carlo.py` — simulation-based pricing and uncertainty estimates.
+- `implied_volatility.py` — implied-volatility solver.
+- `analytics.py` — model comparison and sensitivity analysis.
+- `tests/` — automated model and validation tests.
+- `outputs/` — saved model comparison, calculation summary, price surface and Greek profiles used in the root README.
 
-## Windows setup
+## Run
 
-```powershell
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-```
-
-## Run the complete workflow
-
-```powershell
+```bash
+pip install -r requirements.txt
 python main.py
 ```
 
-The workflow exports model comparisons, a price surface, Greek profiles, a JSON summary, and charts to `outputs/`.
+Interactive calculator:
 
-## Run the interactive calculator
-
-```powershell
+```bash
 streamlit run app.py
 ```
 
-## Run the tests
+Automated tests:
 
-```powershell
-pytest -q
+```bash
+pytest
 ```
-
-## Notebook use
-
-Open `main.ipynb` and run all cells.
-
-Open `complete_options_pricing_theory_guide.ipynb` for the full mathematical explanation.
-
-## Important scope
-
-Black-Scholes-Merton assumes a frictionless market, continuous trading, lognormal prices, constant volatility and rates, and European exercise. The tree relaxes the European-exercise restriction. Monte Carlo estimates European values numerically.
-
-This project is educational and is not trading advice.

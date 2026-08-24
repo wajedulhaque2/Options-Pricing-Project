@@ -190,4 +190,4 @@ pytest
 
 **Derivatives pricing · Black–Scholes · CRR binomial trees · Monte Carlo simulation · variance-aware numerical analysis · Greeks · implied volatility · no-arbitrage validation · American early exercise · modular Python design · Streamlit · automated testing**
 
-> Educational and quantitative-research project only — not investment advice.
+> Educational and quantitative-research project only - not investment advice.

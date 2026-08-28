@@ -16,6 +16,9 @@ jobs:
           cache-dependency-path: "options-pricing-project/requirements.txt"
       - name: Install dependencies
         run: pip install -r "options-pricing-project/requirements.txt"
+      - name: Compile application
+        working-directory: "options-pricing-project"
+        run: python -m py_compile app.py strategy_templates.py volatility_surface.py option_portfolio.py
       - name: Run test suite
         working-directory: "options-pricing-project"
         run: pytest -q

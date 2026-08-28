@@ -30,26 +30,42 @@ def monte_carlo_price(
     antithetic_variates: bool = True,
     control_variate: bool = True,
 ) -> MonteCarloResult:
-    """Estimate a European option value under risk-neutral GBM."""
+    """Estimate a European option value under risk-neutral GBM.
+
+    When antithetic variates are enabled, each ``z`` and ``-z`` payoff pair is
+    averaged before the sampling standard error is calculated. Treating the two
+    members of an antithetic pair as independent would understate or otherwise
+    distort the uncertainty estimate because they are intentionally correlated.
+    """
 
     inputs.validate()
     if simulations < 2:
         raise ValueError("simulations must be at least two")
+    if antithetic_variates and simulations % 2:
+        raise ValueError(
+            "antithetic variates require an even simulation count"
+        )
     if not 0 < confidence_level < 1:
         raise ValueError("confidence_level must be between zero and one")
 
     if inputs.time_to_expiry == 0:
         value = intrinsic_value(inputs)
         return MonteCarloResult(
-            value, 0.0, value, value, simulations,
-            confidence_level, antithetic_variates, control_variate
+            value,
+            0.0,
+            value,
+            value,
+            simulations,
+            confidence_level,
+            antithetic_variates,
+            control_variate,
         )
 
     rng = np.random.default_rng(seed)
     if antithetic_variates:
-        half = (simulations + 1) // 2
+        half = simulations // 2
         base = rng.standard_normal(half)
-        shocks = np.concatenate([base, -base])[:simulations]
+        shocks = np.concatenate([base, -base])
     else:
         shocks = rng.standard_normal(simulations)
 
@@ -58,9 +74,7 @@ def monte_carlo_price(
         - inputs.dividend_yield
         - 0.5 * inputs.volatility**2
     ) * inputs.time_to_expiry
-    diffusion = (
-        inputs.volatility * np.sqrt(inputs.time_to_expiry) * shocks
-    )
+    diffusion = inputs.volatility * np.sqrt(inputs.time_to_expiry) * shocks
     terminal_spots = inputs.spot * np.exp(drift + diffusion)
     payoffs = (
         np.maximum(terminal_spots - inputs.strike, 0.0)
@@ -80,15 +94,30 @@ def monte_carlo_price(
         variance_control = np.var(discounted_terminal, ddof=1)
         if variance_control > 0:
             covariance = np.cov(
-                discounted_payoffs, discounted_terminal, ddof=1
+                discounted_payoffs,
+                discounted_terminal,
+                ddof=1,
             )[0, 1]
             coefficient = covariance / variance_control
             adjusted = discounted_payoffs - coefficient * (
                 discounted_terminal - known_expectation
             )
 
-    price = float(np.mean(adjusted))
-    standard_error = float(np.std(adjusted, ddof=1) / np.sqrt(simulations))
+    if antithetic_variates:
+        half = simulations // 2
+        independent_estimates = (
+            adjusted[:half] + adjusted[half:]
+        ) / 2.0
+        price = float(np.mean(independent_estimates))
+        standard_error = float(
+            np.std(independent_estimates, ddof=1) / np.sqrt(half)
+        )
+    else:
+        price = float(np.mean(adjusted))
+        standard_error = float(
+            np.std(adjusted, ddof=1) / np.sqrt(simulations)
+        )
+
     critical = float(norm.ppf(0.5 + confidence_level / 2.0))
     margin = critical * standard_error
 

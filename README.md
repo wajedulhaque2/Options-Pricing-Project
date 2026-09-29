@@ -111,6 +111,37 @@ cd options-pricing-project
 streamlit run app.py
 ```
 
+## Application screenshots
+
+Captured from the updated Streamlit interface with demonstration inputs. These illustrate calculator behavior, not live trading results.
+
+![Options calculator and pricing-model comparison](docs/screenshots/calculator.png)
+
+<details>
+<summary><strong>Greeks, implied volatility and scenario analysis</strong></summary>
+
+### Greek sensitivity profiles
+
+![Option price and Greek sensitivities across spot prices](docs/screenshots/greeks.png)
+
+### Implied volatility
+
+![Implied-volatility recovery from an observed option price](docs/screenshots/implied-volatility.png)
+
+### Scenario surface
+
+![Black-Scholes option-price surface across spot and volatility](docs/screenshots/scenario-surface.png)
+
+### American exercise
+
+![European and American option-price comparison](docs/screenshots/american-exercise.png)
+
+### Strategy risk
+
+![Multi-leg portfolio risk inputs and sensitivities](docs/screenshots/strategy-risk.png)
+
+</details>
+
 ## Project structure
 
 ```text

@@ -30,11 +30,30 @@ from strategy_templates import build_strategy
 from volatility_surface import ChainFilterConfig, analyze_option_chain
 
 st.set_page_config(page_title="Options Volatility & Strategy Research", layout="wide")
-st.title("Options Volatility & Strategy Research")
-st.caption(
-    "Pricing models, Greeks, implied volatility, market-chain cleaning, "
-    "multi-leg risk and spot/volatility scenario analysis."
-)
+st.markdown("""
+<style>
+  :root { --ink:#142536; --muted:#516477; --line:#d5e1e7; --teal:#087f83; }
+  .stApp { background:#f5f9fa; color:var(--ink); }
+  .block-container { max-width:1480px; padding-top:1.8rem; }
+  [data-testid="stSidebar"] { background:#eaf2f3; border-right:1px solid var(--line); }
+  .research-header { border-top:4px solid var(--teal); border-bottom:1px solid var(--line); padding:1rem 0 1.4rem; margin-bottom:1.2rem; }
+  .research-header .identity { color:var(--teal); font-size:.73rem; font-weight:750; letter-spacing:.12em; text-transform:uppercase; }
+  .research-header h1 { color:var(--ink); font-size:clamp(1.8rem,3.4vw,2.8rem); letter-spacing:-.045em; line-height:1.07; margin:.4rem 0 .55rem; }
+  .research-header p { color:var(--muted); max-width:68ch; margin:0; line-height:1.5; }
+  [data-testid="stMetric"] { background:#fff; border:1px solid var(--line); border-top:3px solid var(--teal); border-radius:8px; padding:.7rem 1rem; }
+  [data-testid="stMetricValue"] { font-variant-numeric:tabular-nums; }
+  button[data-baseweb="tab"] { font-weight:650; }
+  [data-testid="stDataFrame"] { border:1px solid var(--line); border-radius:8px; }
+  @media(max-width:640px) { .block-container { padding-top:1rem; } .research-header { padding-top:.75rem; } }
+</style>
+""", unsafe_allow_html=True)
+st.markdown("""
+<div class="research-header">
+  <div class="identity">Options research / pricing · volatility · risk</div>
+  <h1>Options Volatility &amp; Strategy Research</h1>
+  <p>Compare pricing models, inspect Greeks and implied volatility, and stress-test multi-leg strategies against spot and volatility moves.</p>
+</div>
+""", unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Contract inputs")
